@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+var args = process.argv.splice(process.execArgv.length + 2);
+
 //Config
 var discreet = false;
 var debug = true;
 
-var db = process.argv[2]?process.argv[2]:'localhost:27017/reginadb';
-var port = process.argv[3]?process.argv[3]:3009;
+var db = args[0]?args[0]:'localhost:27017/reginadb';
+var port = args[1]?args[1]:1210;
 
 //express http server
 var app = require('express')();
@@ -30,7 +32,7 @@ var regina = monk(db); //database handler
 //Home page
 app
 .get('/', function(req, res){
-  res.send(discreet ? '' : '<h1>Regina<h1>'); 
+  res.send(discreet ? '' : '<h1>Aladdin<h1>'); 
 });
 
 
@@ -258,6 +260,30 @@ io.on('connection', function (socket) {
         });
         //end : socket.on('remove
       });
+      
+      
+      
+
+
+      /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+       *      * * * * * * * * Aladdin Specifics jobs * * * * * * * *         *
+       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       //end : io.on('connection'
