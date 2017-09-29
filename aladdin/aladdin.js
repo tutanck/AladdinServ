@@ -266,7 +266,7 @@ io.on('connection', function (socket) {
 
 
       /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-       *      * * * * * * * * Aladdin Specifics jobs * * * * * * * *         *
+       *      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
       
       
