@@ -25,6 +25,17 @@ var Role = require('./Role')
 var utils = require('./utils')
 var compiler = require('./compiler')
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+//Aladdin Jobs
+var book = require('../jobs/book')
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+*      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 
 //regina
 var regina = monk(db); //database handler
@@ -32,7 +43,10 @@ var regina = monk(db); //database handler
 //Home page
 app
 .get('/', function(req, res){
-  res.send(discreet ? '' : '<h1>Aladdin<h1>'); 
+  if(discreet)
+    res.status(200).send('')
+  else
+    res.sendfile('tests/index.html'); 
 });
 
 
@@ -263,31 +277,60 @@ io.on('connection', function (socket) {
       
       
       
-
-
+      
+      
+      
+      
+      
+      
       /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-       *      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
-       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+      *      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
+      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
       
+      for (const jobName of Object.keys(book.jobs)){
+        console.log("+JOB:","\'"+jobName+"\'")
+
+        socket.on(jobName,(bundle, meta, ack) => {
+          if(!compiler.isValidACK(ack)) 
+            return emitNoackCallbackError(socket);
+          
+          let status = compiler.check(
+            R.aggregate.toString, [
+              { val : bundle, role : Role.bundle },
+              { val : meta, role : Role.meta } 
+            ]
+          );
+          
+          let ctx = {"op":R.aggregate.toCRUD,"job":jobName,"meta":meta}
+          
+          if(!status.valid)
+            return reply(R.aggregate.toString,ack,status.error,null,ctx)
+          
+          book.jobs[jobName](regina,bundle)
+          .then((res) => {
+            reply(R.aggregate.toString,ack,null,res,ctx)
+            //  ||
+            notifyFollowers(socket,res,ctx)
+          }).catch((e) =>{
+            reply(R.aggregate.toString,ack,e,null,ctx)
+          });
+          
+          //end : socket.on('jobName
+        });
+
+        //end : for(const
+      }
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+      *      * * * * * * * * Aladdin Specifics Jobs * * * * * * * *         *
+      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
       
       
       
       //end : io.on('connection'
     });
+    
+    
     
     
     
@@ -355,12 +398,12 @@ io.on('connection', function (socket) {
     app
     .use(function(req, res, next){
       res.setHeader('Content-Type', 'text/plain');
-      res.send(404, 'Not Found !'); 
+      res.status(404).send('Not Found !'); 
     });
     
     
     server
     .listen(port, function(){
-      console.log("Regina is ready to talk with MongoDB about '"+db+"' on port '"+port+"' !");
+      console.log("Aladdin is ready to talk with MongoDB about '"+db+"' on port '"+port+"' !");
     });
     

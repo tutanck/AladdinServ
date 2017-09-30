@@ -2,17 +2,17 @@
 <html>
 <head><title>Regina</title></head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-<h1>Regina<h1>
+<h1>$_-<h1>
     <script>
-    var socket = io('http://localhost:3009/');
+    var socket = io('http://localhost:1210/');
     
     socket.on('regina_noack_callback_error', (msg)=>{console.log(msg);})
     
-    socket.emit('find', 'users', {}, {"username":1}, {"tags":[{"val" : "find-users"}]} 
+    socket.emit('getUserRating', [], {"tags":[{"val" : "#getUserRating"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
     );
     
-    socket.on('find-users', (res, ctx) => {
+    socket.on('#getUserRating', (res, ctx) => {
       console.log(res,ctx);
     });    
   </script>

@@ -43,3 +43,9 @@ exports.ack = {
   toString: 'ack',
   type: [Type.fun]
 };
+
+
+exports.bundle = {
+  toString: 'bundle',
+  type: [Type.obj]
+};
