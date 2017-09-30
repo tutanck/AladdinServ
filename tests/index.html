@@ -14,7 +14,20 @@
     
     socket.on('#getUserRating', (res, ctx) => {
       console.log(res,ctx);
-    });    
+    });  
+    
+    
+    socket.emit('getUserContacts', {"userID":"joan"}, {"tags":[{"val" : "#getUserContacts"}]} 
+      ,(err,res,ctx)=>{ console.log(err,res,ctx);}
+    );
+    
+    socket.on('#getUserContacts', (res, ctx) => {
+      console.log(res,ctx);
+    });  
+
+
+
+
   </script>
 <body></body>
 </html>
