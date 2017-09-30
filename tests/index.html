@@ -8,7 +8,7 @@
     
     socket.on('regina_noack_callback_error', (msg)=>{console.log(msg);})
     
-    socket.emit('getUserRating', [], {"tags":[{"val" : "#getUserRating"}]} 
+    socket.emit('getUserRating', {"userID":"fictivID"}, {"tags":[{"val" : "#getUserRating"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
     );
     
