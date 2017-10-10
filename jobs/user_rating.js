@@ -2,7 +2,7 @@
 'user_rating' collection's pipeliner
 */
 
-var coll = 'USER_RATING'
+var coll = 'USER_RATINGS'
 
 exports.getUserRating = (regina, bundle) => { 
     console.log("job::getUserRating is running with bundle = "+JSON.stringify(bundle))
