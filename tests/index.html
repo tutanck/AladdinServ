@@ -8,16 +8,16 @@
     
     socket.on('regina_noack_callback_error', (msg)=>{console.log(msg);})
     
-    socket.emit('getUserRating', {"userID":"fictivID"}, {"tags":[{"val" : "#getUserRating"}]} 
+    /*socket.emit('getUserRating', {"userID":"fictivID"}, {"tags":[{"val" : "#getUserRating"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
     );
     
     socket.on('#getUserRating', (res, ctx) => {
       console.log(res,ctx);
     });  
+    */
     
-    
-    socket.emit('getUserContacts', {"userID":"joan"}, {"tags":[{"val" : "#getUserContacts"}]} 
+    socket.emit('getUserContacts', {"userID":"59d9009d3ff39e01ebb70e15"}, {"tags":[{"val" : "#getUserContacts"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
     );
     
@@ -25,8 +25,15 @@
       console.log(res,ctx);
     });  
 
+ /*
+    socket.emit('getUserContext', {"userID":"59d9009d3ff39e01ebb70e15"}, {"tags":[{"val" : "#getUserContext"}]} 
+      ,(err,res,ctx)=>{ console.log(err,res,ctx);}
+    );
 
-
+    socket.on('#getUserContext', (res, ctx) => {
+      console.log(res,ctx);
+    });
+*/
 
   </script>
 <body></body>

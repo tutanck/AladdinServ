@@ -34,20 +34,40 @@ exports.getUserContacts = (regina, bundle) => {
         },
         { 
             $project : {
-                "idList":{"$setUnion":["$senders","$recipients"]}
+                "_id":{"$setUnion":["$senders","$recipients"]}
             }
         },
         {
             $project: {
-                "idList" : {
-                  $filter: {
-                     input: "$idList",
-                     as: "uid",
-                     cond: {  $ne: [ "$$uid", bundle.userID ]  }
-                  }
-               }
+                "_id" : {
+                    $filter: {
+                        input: "$_id",
+                        as: "uid",
+                        cond: {  $ne: [ "$$uid", bundle.userID ]  }
+                    }
+                }
             }
-         }
+        },
+        {
+            $unwind : "$_id" 
+        },
+        {
+            $lookup:
+            {
+                from: "PROFILES",
+                localField: "_id",
+                foreignField: "id",
+                as: "profile"
+            }
+        },
+        {
+            $project: {
+                "profile": 1, "_id": 0
+            }
+        },
+        {
+            $unwind : "$profile" 
+        }
     ];
     
     return regina.get(coll).aggregate(pipeline,{});
