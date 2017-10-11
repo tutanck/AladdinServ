@@ -15,7 +15,7 @@
     socket.on('#getUserRating', (res, ctx) => {
       console.log(res,ctx);
     });  
-    */
+    
     
     socket.emit('getUserContacts', {"userID":"59d9009d3ff39e01ebb70e15"}, {"tags":[{"val" : "#getUserContacts"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
@@ -24,16 +24,16 @@
     socket.on('#getUserContacts', (res, ctx) => {
       console.log(res,ctx);
     });  
-
- /*
-    socket.emit('getUserContext', {"userID":"59d9009d3ff39e01ebb70e15"}, {"tags":[{"val" : "#getUserContext"}]} 
+*/
+ 
+    socket.emit('sendMessage', {"userID":"59d9009d3ff39e01ebb70e15"}, {"tags":[{"val" : "#sendMessage"}]} 
       ,(err,res,ctx)=>{ console.log(err,res,ctx);}
     );
 
-    socket.on('#getUserContext', (res, ctx) => {
+    socket.on('#sendMessage', (res, ctx) => {
       console.log(res,ctx);
     });
-*/
+
 
   </script>
 <body></body>
